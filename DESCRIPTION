@@ -1,0 +1,10 @@
+Package: gptools
+Title: A Set Of Utilities Related To SAP Performance Analysis
+Version: 0.0.0.9000
+Authors@R: person("Graham", "Parkes", email = "graham@theparkes.me.uk", role = c("aut", "cre"))
+Description: This package provide a set of functions to support the analysis of data from SAP systems.
+Depends: R (>= 3.4.1)
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
