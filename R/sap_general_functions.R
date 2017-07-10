@@ -19,8 +19,9 @@ library(stringi)
 sap_stad_quantile <- function(o,testfield,pattern,summaryfield) {
 
     testf <- which(names(o)==testfield,arr.ind=TRUE)
-
-    df <- as.data.frame(quantile(o[o[,testf] %in% pattern,summaryfield],seq.int(0.01,1,0.01)))
+    items <- o[,testf] == pattern
+    df <- as.data.frame ( quantile(o[items,summaryfield][[1]], seq.int(0.01,1,0.01)))
+    
 
     names(df)[1] <- 'val'
     df$percentile <- as.numeric(str_extract(row.names(df),"[0-9]*"))
