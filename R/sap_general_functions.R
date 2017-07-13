@@ -185,3 +185,23 @@ sap_duration_calc <- function(start_date,end_date,start_time,end_time) {
 
 
     }
+
+#' Convenience methot to top and tail (remove firat and last column and row from raw SAP output format
+#' @param o object to clean
+#' @keywords unformated SAP 
+#' @export 
+#' @examples
+#' i <- sap_clean_raw(o)
+
+
+sap_clean_raw <- function(o){
+    o <- o[-1,]
+    o <- o[,-1]
+    o <- o[-nrow(o),]
+    o <- o[,-ncol(o)]
+
+    names(o) <- str_to_lower(str_trim(names(o)))
+
+    return(o)
+
+    }
