@@ -21,7 +21,7 @@ A Function To Read STAD Unformated Exports
 The function reads SAP STAD exports
 }
 \examples{
-i <- sap_file_load("directory",".*",my_cleanup,4)
+i <- sap_file_load('directory','.*',my_cleanup,4)
 }
 \keyword{SAP}
 \keyword{STAD}

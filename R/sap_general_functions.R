@@ -1,9 +1,3 @@
-library(dplyr)
-library(stringr)
-library(readr)
-library(lubridate)
-library(tidyr)
-library(stringi)
 
 #' A Function To Calculate A Vector Of Quantile Values
 #' The function calculates quantile values such as from STAD data
@@ -16,17 +10,17 @@ library(stringi)
 #' @examples
 #' sap_stad_quantile(stad_values, field, filter_value, summaryfield)
 
-sap_stad_quantile <- function(o,testfield,pattern,summaryfield) {
-
-    testf <- which(names(o)==testfield,arr.ind=TRUE)
-    items <- o[,testf] == pattern
-    df <- as.data.frame ( quantile(o[items,summaryfield][[1]], seq.int(0.01,1,0.01)))
+sap_stad_quantile <- function(o, testfield, pattern, summaryfield) {
     
-
-    names(df)[1] <- 'val'
-    df$percentile <- as.numeric(str_extract(row.names(df),"[0-9]*"))
+    testf <- which(names(o) == testfield, arr.ind = TRUE)
+    items <- o[, testf] == pattern
+    df <- as.data.frame(quantile(o[items, summaryfield][[1]], seq.int(0.01, 1, 0.01)))
+    
+    
+    names(df)[1] <- "val"
+    df$percentile <- as.numeric(stringr::str_extract(row.names(df), "[0-9]*"))
     row.names(df) <- NULL
-    return (df)
+    return(df)
 }
 
 
@@ -39,8 +33,8 @@ sap_stad_quantile <- function(o,testfield,pattern,summaryfield) {
 #' @examples
 #' i <- sap_numeric(stad_value)
 
-sap_numeric <- function (f) {
-    return (as.numeric(gsub(",","",f)))
+sap_numeric <- function(f) {
+    return(as.numeric(gsub(",", "", f)))
 }
 
 
@@ -53,31 +47,33 @@ sap_numeric <- function (f) {
 #' @keywords SAP STAD
 #' @export 
 #' @examples
-#' i <- sap_file_load("directory",".*",my_cleanup,4)
+#' i <- sap_file_load('directory','.*',my_cleanup,4)
 
 
-sap_file_load <- function(dir_name,pattern,cleanup,skip) {
-
+sap_file_load <- function(dir_name, pattern, cleanup, skip) {
+    
     baseline_files <- list.files(dir_name)
-    matching_str <- match(baseline_files,pattern)
+    matching_str <- match(baseline_files, pattern)
     target_files <- baseline_files[!is.na(matching)]
-
-    if(length(target_files) >= 1) {
-
-                                        # first get first for structure etc
-
-        baseline <- read_delim(paste0(dir_name,"/",target_files[1]), delim="|", skip=skip)
-
+    
+    if (length(target_files) >= 1) {
+        
+        # first get first for structure etc
+        
+        baseline <- readr::read_delim(paste0(dir_name, "/", target_files[1]), delim = "|", 
+            skip = skip)
+        
         baseline <- cleanup(baseline)
-
+        
         for (n in 2:length(target_files)) {
-
-            moredata <- read_delim(paste0(dir_name,"/",target_files[n]), delim="|", skip=skip)
+            
+            moredata <- readr::read_delim(paste0(dir_name, "/", target_files[n]), delim = "|", 
+                skip = skip)
             moredata <- cleanup(moredata)
-            baseline <- rbind(baseline,moredata)
+            baseline <- rbind(baseline, moredata)
         }
     }
-    return (baseline)
+    return(baseline)
 }
 
 #' A Starter Function To Clean STAD data
@@ -90,17 +86,18 @@ sap_file_load <- function(dir_name,pattern,cleanup,skip) {
 
 
 sap_tidy_stad <- function(f) {
-
+    
     names(f) <- str_trim(names(f))
-    f[,1] <- NULL
-    f <- f[-c(1:4),]
-    f <- f[-nrow(f),]
-    names(f)[1] <- 'Combined'
-   
-    f <- separate(f,Combined,c('time','server','tcode','program','type','screen','wp'),c(8,25,46,87,89,94,96))
-
+    f[, 1] <- NULL
+    f <- f[-c(1:4), ]
+    f <- f[-nrow(f), ]
+    names(f)[1] <- "Combined"
+    
+    f <- tidyr::separate(f, Combined, c("time", "server", "tcode", "program", "type", "screen", 
+        "wp"), c(8, 25, 46, 87, 89, 94, 96))
+    
     return(f)
-    }
+}
 
 #' A Starter Function To Clean SDF MON header data
 #' The function clean SAP SDF MON header exports
@@ -111,27 +108,28 @@ sap_tidy_stad <- function(f) {
 #' i <- sap_tidy_sdf(df)
 
 
-sap_tidy_sdf <- function (o) {
-
-    o[,1] <- NULL
-    o <- o[-1,]
-    o <- o[-nrow(o),]
-
-    names(o) <- str_trim(names(o))
-    o <- select(o,DATUM,TIME,SERVER,ACT_WPS,ACT_DIA,IDLE_TOTAL,USERS,SESSIONS,AVAILCPUS)
-    o$begin_date <- dmy(o$DATUM)
-    o$begin_l_time <- hms(o$TIME)
+sap_tidy_sdf <- function(o) {
+    
+    o[, 1] <- NULL
+    o <- o[-1, ]
+    o <- o[-nrow(o), ]
+    
+    names(o) <- stringr::str_trim(names(o))
+    o <- select(o, DATUM, TIME, SERVER, ACT_WPS, ACT_DIA, IDLE_TOTAL, USERS, SESSIONS, 
+        AVAILCPUS)
+    o$begin_date <- lubridate::dmy(o$DATUM)
+    o$begin_l_time <- lubridate::hms(o$TIME)
     o$ACT_WPS <- sap_numeric(o$ACT_WPS)
     o$IDLE_TIME <- sap_numeric(o$IDLE_TOTAL)
     o$USERS <- sap_numeric(o$USERS)
     o$SESSIONS <- sap_numeric(o$SESSIONS)
     o$AVAILCPUS <- sap_numeric(o$AVAILCPUS)
-    o$hour = hour(o$begin_l_time)
-
-    o <- o[str_length(str_trim(o$SERVER)) >0,]
-
-    return (o)
-
+    o$hour = lubridate::hour(o$begin_l_time)
+    
+    o <- o[stringr::str_length(stringr::str_trim(o$SERVER)) > 0, ]
+    
+    return(o)
+    
 }
 
 
@@ -146,23 +144,26 @@ sap_tidy_sdf <- function (o) {
 
 
 sap_tidy_st03n_hr <- function(o) {
-
-                                        # eliminate rows
-    o[,1] <- NULL
-    o <- o[-1,]
-    o <-o[-nrow(o),]
-    o <-o[,-ncol(o)]
-
-
-                                        # first names
-    names(o) <- c("interval", "num_steps", "t_response_time", "average_time", "process.", "avg._proc._time", "t_cpu_", "average_cpu_", "t_db_time", "average_db_time", "t_time","average_time_db_proc", "t_roll_wait_time",  "average_roll_wait_time", "t_wait_time", "average_wait_time", "num_trips", "average_time_1", "average_gui_time", "num_vmc_calls", "t_vmc_cpu", "t_vmcelaps", "avgvmc_cpu", "avgvmcelap")
-
-                                        # now types
-                                        # first column contains the starting hour
-    o <- mutate(o,hr = as.numeric(str <- match(o$interval,"^[0-2][0-9]")))
-    o <- mutate_at(o, .funs=sap <- numeric, .cols = c(2:24))
-
-    return (o)
+    
+    # eliminate rows
+    o[, 1] <- NULL
+    o <- o[-1, ]
+    o <- o[-nrow(o), ]
+    o <- o[, -ncol(o)]
+    
+    
+    # first names
+    names(o) <- c("interval", "num_steps", "t_response_time", "average_time", "process.", 
+        "avg._proc._time", "t_cpu_", "average_cpu_", "t_db_time", "average_db_time", 
+        "t_time", "average_time_db_proc", "t_roll_wait_time", "average_roll_wait_time", 
+        "t_wait_time", "average_wait_time", "num_trips", "average_time_1", "average_gui_time", 
+        "num_vmc_calls", "t_vmc_cpu", "t_vmcelaps", "avgvmc_cpu", "avgvmcelap")
+    
+    # now types first column contains the starting hour
+    o <- tidyr::mutate(o, hr = as.numeric(str <- match(o$interval, "^[0-2][0-9]")))
+    o <- tidyr::mutate_at(o, .funs = sap <- numeric, .cols = c(2:24))
+    
+    return(o)
 }
 
 
@@ -179,14 +180,14 @@ sap_tidy_st03n_hr <- function(o) {
 #' i <- sap_duration_calc(st_dt, en_dt, st_tm, en_tm)
 
 
-sap_duration_calc <- function(start_date,end_date,start_time,end_time) {
+sap_duration_calc <- function(start_date, end_date, start_time, end_time) {
+    
+    return(end_time - start_time + difftime(end_date, start_date))
+    
+    
+}
 
-    return (end_time - start_time + difftime(end_date,start_date))
-
-
-    }
-
-#' Convenience methot to top and tail (remove firat and last column and row from raw SAP output format
+#' Convenience method to top and tail (remove firat and last column and row from raw SAP output format
 #' @param o object to clean
 #' @keywords unformated SAP 
 #' @export 
@@ -194,14 +195,14 @@ sap_duration_calc <- function(start_date,end_date,start_time,end_time) {
 #' i <- sap_clean_raw(o)
 
 
-sap_clean_raw <- function(o){
-    o <- o[-1,]
-    o <- o[,-1]
-    o <- o[-nrow(o),]
-    o <- o[,-ncol(o)]
-
-    names(o) <- str_to_lower(str_trim(names(o)))
-
+sap_clean_raw <- function(o) {
+    o <- o[-1, ]
+    o <- o[, -1]
+    o <- o[-nrow(o), ]
+    o <- o[, -ncol(o)]
+    
+    names(o) <- stringr::str_to_lower(str_trim(names(o)))
+    
     return(o)
-
-    }
+    
+}
