@@ -20,7 +20,7 @@ The timeline itself is draw by subsequent processing of the returned data.
 \examples{
 timeline_data  <- sap_timeline(rawdata,'OBJECT_NAME','dt')
 
-timeline_data \%>\% group_by(start_time,OBJECT_NAME) \%>\% ggplot() + geom <- segment(aes(x=start <- time, xend=dt,y=OBJECT_NAME, yend=OBJECT_NAME,colour=OBJECT_NAME),size=6)+theme(legend.position='none')+labs(title='Sample Timeline')
+timeline_data \%>\% group_by(start_time,OBJECT_NAME) \%>\% ggplot() + geom <- segment(aes(x=start_time, xend=dt,y=OBJECT_NAME, yend=OBJECT_NAME,colour=OBJECT_NAME),size=6)+theme(legend.position='none')+labs(title='Sample Timeline')
 }
 \keyword{SAP}
 \keyword{timeline}
