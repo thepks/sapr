@@ -3,6 +3,7 @@
 export(sap_clean_raw)
 export(sap_duration_calc)
 export(sap_file_load)
+export(sap_missing_values)
 export(sap_numeric)
 export(sap_stad_quantile)
 export(sap_tidy_sdf)

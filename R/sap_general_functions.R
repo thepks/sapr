@@ -206,3 +206,25 @@ sap_clean_raw <- function(o) {
     return(o)
     
 }
+
+#' A Function To Form A Data Frame Of Missing Values
+#' The function gives a data frame of columns that have missing data and the quantity in each
+#' @param o The object to be evaluated
+#' @export 
+#' @keywords na
+#' @examples
+#' sap_stad_quantile(stad_values, field, filter_value, summaryfield)
+
+sap_missing_values <- function(o) {
+
+    absent_data_cols <- summarise_all(o,check_na)
+    absent_data_cols_ind <- absent_data_cols[1,]>0
+    absent_items <- t(absent_data_cols[,absent_data_cols_ind[1,]])
+    absent_items <- cbind(absent_items,feature=row.names(absent_items))
+    absent_items <- as.data.frame(absent_items,stringsAsFactors=FALSE)
+    names(absent_items)[1] <- "gaps"
+    absent_items$gaps <- as.numeric(absent_items$gaps)
+    absent_items <- absent_items[order(absent_items$gaps,decreasing = TRUE),]
+    row.names(absent_items) <- NULL
+    return(absent_items)
+}
