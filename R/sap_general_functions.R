@@ -213,7 +213,7 @@ sap_clean_raw <- function(o) {
 #' @export 
 #' @keywords na
 #' @examples
-#' sap_stad_quantile(stad_values, field, filter_value, summaryfield)
+#' sap_missing_values(df)
 
 sap_missing_values <- function(o) {
 

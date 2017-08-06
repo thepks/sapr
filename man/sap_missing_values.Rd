@@ -15,6 +15,6 @@ A Function To Form A Data Frame Of Missing Values
 The function gives a data frame of columns that have missing data and the quantity in each
 }
 \examples{
-sap_stad_quantile(stad_values, field, filter_value, summaryfield)
+sap_missing_values(df)
 }
 \keyword{na}
