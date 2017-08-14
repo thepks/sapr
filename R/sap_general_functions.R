@@ -53,7 +53,7 @@ sap_numeric <- function(f) {
 sap_file_load <- function(dir_name, pattern, cleanup, skip) {
     
     baseline_files <- list.files(dir_name)
-    matching_str <- match(baseline_files, pattern)
+    matching <- str_match(baseline_files, pattern)
     target_files <- baseline_files[!is.na(matching)]
     
     if (length(target_files) >= 1) {
