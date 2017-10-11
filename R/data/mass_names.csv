@@ -1,0 +1,154 @@
+type,name
+^0002.*,Creation of Balanced Account Statements 
+^0004.*,Automatic Clearing
+^0006.*,Receivables by Bus. Area and Profit Ctr 
+^0026.*,Contract Account Balance Notifications  
+^0029.*,Creation of Business Partner Statements 
+^0094.*,Revenue Distribution                    
+^0095.*,Write Off                               
+^0096.*,Release to Collection Agency            
+^0097.*,Information to Collection Agency        
+^0098.*,Submission to Collection Agency         
+^2442.*,IDOC Doc. from EBS + CO-PA (Optional)   
+^2447.*,IDOC: Incorrect Documents from EBS      
+^2450.*,IDOC: Reversal from Ext. Billing System 
+^2455.*,IDOC Incorrect Reversal from EBS        
+^2460.*,IDOC Achive Link Dokument from EBS      
+^2465.*,IDOC Incorrect Documents from EBS       
+^2470.*,IDOC: Send Info for Printing            
+^2475.*,IDOC: Error Sending Info for Printing   
+^2600.*,Invoicing in FI-CA                      
+^2610.*,Reversal (Invoicing in FI-CA)           
+^2620.*,BW (Invoicing in FI-CA)                 
+^2630.*,Periodic Invoicing                      
+^8000.*,Billing in FI-CA                        
+^8010.*,BI: BW Extraction of EDRs               
+^8100.*,BIX Billing in FI-CA                    
+^8110.*,BIX Transfer Raw Data to Billable Items 
+^ABBP.*,IS-U ARCHIVG: BUDGET BILLING PLAN ARCHVG
+^ABIH.*,IS-U ARCHIVING:BILLING DOC HEADER ARCH. 
+^ABIL.*,IS-U ARCHIVING:BILLG DOC LINE ITEM ARCH.
+^AFAC.*,IS-U Archiving: Installation Facts      
+^APDH.*,IS-U ARCHIVING:PRINTING DOC HEADER ARCH.
+^APDL.*,IS-U ARCHIVING:PRNTG DOC LINE ITEM ARCH.
+^BBOL.*,MASS ACTIVITY: PRINT BILL               
+^BIBP.*,MASS ACT. FOR FIN. STATEMENT ACCRUALS   
+^BICB.*,Consumption History from Bill Line Items
+^BICF.*,Consumpt. History fm Installation Facts 
+^BILL.*,MASS ACTIVITY: BILLING                  
+^BILS.*,MASS ACTIVITY: SIMULATED BILLING        
+^BIPR.*,MASS ACTIVITY: PRINT BILL               
+^BLCK.*,PROCESS LIMITED LOCKS                   
+^BPCR.*,Prepare Business Partner Change Request 
+^BPCU.*,Process Business Partner Change Request 
+^BPDP.*,Normalization of BP for Duplicate Search
+^BUBI.*,MASS ACTIVITY: REQUEST BUDGET BILLINGS  
+^BWCS.*,Consumption -> BW Delta Queue           
+^BWET.*,Update of Delta Queue                   
+^BWOP.*,Update of Delta Queue for Business Part.
+^BWSS.*,Sales Statistics -> BW Delta Queue      
+^BWTI.*,Delta: Bill Processing by Third Party   
+^CANC.*,MASS ACTIVITY: REVERSE BILL             
+^CBOL.*,                                        
+^CBPR.*,MASS ACTIVITY: Collective Bill Printout 
+^CIBW.*,FI-CA CI Extraction to BW               
+^CINV.*,Create Collective Bill                  
+^CLBW.*,FI-CA Coll. Agency Extraction to BW     
+^CO34.*,MASS ACT.: Write-Off Notification       
+^CODU.*,MASS ACTIVITY: DUNNING CORRESPONDENCE   
+^COPR.*,Correspondence Printing                 
+^CR01.*,Transfer of Credit Liability            
+^CR02.*,Score Replication                       
+^CR03.*,Compare Replicated Score                
+^CRPO.*,Credit (Clarification Processing)       
+^CRRQ.*,ISU Mass.Act.: MDUS Prof. Vals for Bllng
+^DDAX.*,Debit Memo Notification (GB)            
+^DERE.*,Transfer Deferred Revenues              
+^DREB.*,Transfer Event-Based Deferred Revenues  
+^DUDC.*,Standing Requests: Document Creation    
+^DWLD.*,Meter Reading Download                                        
+^EAGB.*,IS-U: Print Aggregated Bill             
+^EAM1.*,AMI device mass synchronization         
+^EAM2.*,AMI profiles synchronization            
+^EAM3.*,Mass Act:Sending of Disc/Reconn Orders  
+^EAM4.*,AMI Event Processing                    
+^EAM5.*,AMI Send Messages to Device             
+^ECGN.*,EMMA Cases                              
+^EERD.*,Creation of Electronic Bills            
+^EMMA.*,Create Clarification Cases              
+^EMMR.*,EMMA: Mass Activities                   
+^EMTB.*,MASS ACTIVITY: Turbo Billing            
+^EPRP.*,EMMA: Job Preparation                   
+^ETHA.*,IS-U Agg. Posting to Inv. Party/TaxCalc.
+^ETHI.*,IS-U Agg. Posting to Invoicing Party    
+^ETHP.*,Aggregated Posting of Outgoing Payments 
+^ETRA.*,IS-U Aggreg.Posting of Incoming Invoices
+^EXCS.*,External Cash Desk Services:Transfer OIs
+^EXEM.*,Evaluate Expiry Date of Tax Exemptions  
+^FBOL.*,                                        
+^FMDY.*,Subsequent FM Activation in FI-CA       
+^FPG1.*,Transfer to General Ledger              
+^FPG2.*,G/L Reconciliation                      
+^FPG3.*,COPA Transfer                           
+^FPG7.*,COPA Reconciliation                     
+^FPLA.*,Evaluate Processing Locks               
+^FPSO.*,CONV. PAID STAT DOCS TO OFFICIAL DOCS   
+^FPT1.*,Check Totals Records                    
+^FPTX.*,Update External Tax System              
+^FURV.*,MASS ACTIVITY: OVERALL REVERSAL         
+^GPS1.*,Create Shadow Table from Database       
+^GPS2.*,Update Shadow Table                     
+^INF1.*,Information Container: Send Data        
+^INT1.*,Interest Run                            
+^INT2.*,Cash Security Deposit Interest Run      
+^INV1.*,                                        
+^INVO.*,MASS ACTIVITY: CREATE BILL              
+^INVR.*,Bill/Payment Advice Note Processing     
+^IPBW.*,FI-CA: Installment Plan Extraction BW   
+^IPKY.*,Intallment Plans for Key Date           
+^LOCK.*,Set Lock                                
+^MAEB.*,Valuation of Dunnings                   
+^MAHN.*,FICA Dunning Proposal Run               
+^MAKT.*,FICA Dunning Activity Run               
+^MAST.*,Dunning Reversal                        
+^MSCH.*,Mass Activity: Estimate MR Orders       
+^OITR.*,Outbound Interface: BP Item             
+^OP03.*,Parallel Open Items Report              
+^OP04.*,Parallel Open Items Report              
+^OPBW.*,FI-CA OI Extraction to BW               
+^ORDM.*,Document Creation for Requests          
+^P004.*,                                        
+^P2PV.*,Valuation of Promises to Pay            
+^P700.*,                                        
+^PAYP.*,Payment Run                             
+^PAYS.*,Payment Run (Direct Payers)             
+^PCDS.*,Payment Card Billing                    
+^PINV.*,MASS ACT.: CREATE PARTIAL BILL          
+^RDIP.*,Revenue Dist: Post Distrib. Documents   
+^REPT.*,Mass Receipt Printing                   
+^REVA.*,Transfer Doubtful Rec./Individ.Val.Adjs 
+^REVB.*,Adjust Receivables According to Age     
+^RPRD.*,Installment Plan Printing               
+^SAGB.*,IS-U: Print Aggregated Bill             
+^SAM2.*,Example for Mass Activities             
+^SAMP.*,Sample for Mass Activities              
+^SBBP.*,MASS ACT.: BUDGET BILLING REQ. CENTRICA 
+^SELA.*,Mass Selection of Contract Accounts     
+^SELP.*,Mass Selection of Business Partners     
+^SEPA.*,Creation of SEPA Mandates               
+^SEPB.*,Change SEPA Mandates                    
+^SURS.*,CREATE STATISTICAL CHARGE DOCUMENT      
+^T440.*,                                        
+^T445.*,EXTERNAL DOC. TRANSFER; IDOCS ERROR     
+^T447.*,IST20 Defective Docs+CO-PA Char. Tranfer
+^T450.*,                                        
+^T455.*,                                        
+^T460.*,                                        
+^T470.*,INFO OUTPUT FOR PRINITNG ON INVOICE     
+^T900.*,                                        
+^TINV.*,MASS ACTIVITY: CREATE (PARTIAL) BILL    
+^UPIF.*,UTPIF: Mass Activity                    
+^UPLD.*,                                        
+^VORB.*,Meter Read Order                           
+^ZAHL.*,Payment Lot Processing
+
