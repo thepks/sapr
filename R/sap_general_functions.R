@@ -37,6 +37,17 @@ sap_numeric <- function(f) {
     return(as.numeric(gsub(",", "", f)))
 }
 
+#' A Function To Clean and Convert SAP Times in the format HHMMSS
+#' @param f The value to be converted 
+#' @keywords SAP time conversion 
+#' @export 
+#' @examples
+#' i <- sap_time("083000")
+
+sap_time <- function(f) {
+    return(lubridate::hms(paste(substring(f,seq(1,nchar(f)-1,2),seq(2,nchar(f),2)),collapse=":")))
+}
+
 
 #' A Function To Read STAD Unformated Exports
 #' The function reads SAP STAD exports
