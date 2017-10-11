@@ -45,7 +45,8 @@ sap_numeric <- function(f) {
 #' i <- sap_time("083000")
 
 sap_time <- function(f) {
-    return(lubridate::hms(paste(substring(f,seq(1,nchar(f)-1,2),seq(2,nchar(f),2)),collapse=":")))
+    a<-strsplit(f,"")[[1]]
+    return(lubridate::hms(paste(paste0(a[c(T,F)],a[c(F,T)]),collapse=":")))
 }
 
 
