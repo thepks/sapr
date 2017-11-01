@@ -34,8 +34,15 @@ sap_stad_quantile <- function(o, testfield, pattern, summaryfield) {
 #' i <- sap_numeric(stad_value)
 
 sap_numeric <- function(f) {
-    return(as.numeric(gsub(",", "", f)))
+    if ( stringr::str_count(pattern="(\\d(?=\\..*,))|(^0?,\\d{3,})|(\\d,\\d{4,}(?!.*\\.))|(\\d\\.\\d{3}$)", string=f) >0 ) {
+        f <- gsub("\\.","",f)
+        f <- gsub(",",".",f)
+    } else {
+        f <- gsub(",","",f)
+    }
+    return(as.numeric(f))
 }
+
 
 #' A Function To Clean and Convert SAP Times in the format HHMMSS
 #' @param f The value to be converted 
