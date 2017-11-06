@@ -54,7 +54,7 @@ sap_numeric <- function(f) {
 
 sap_date <- function(f) {
     if( stringr::str_count(pattern="(\\.|\\/)", string=f)>0 ) {
-        if(stringr::str_locate("\\.",string=f)[1] == 5 || stringr::str_locate("\\/",string=f)[1] == 5) {
+        if(stringr::str_locate("(\\.|\\/)",string=f)[1] == 5) {
             return(lubridate::ymd(f))
         } else {
             return(lubridate::dmy(f))
