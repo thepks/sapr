@@ -43,6 +43,28 @@ sap_numeric <- function(f) {
     return(as.numeric(f))
 }
 
+#' A Function To Clean and Convert SAP Dates
+#' The function replace , and converts to dates
+#' @param f The value to be converted
+#' @param l The lubridate pattern, optional
+#' @keywords SAP date conversion 
+#' @export 
+#' @examples
+#' i <- sap_date(date_value,"ymd")
+
+sap_date <- function(f) {
+    if( stringr::str_count(pattern="(\\.|\\/)", string=f)>0 ) {
+        if(stringr::str_locate("\\.",string=f)[1] == 5 || stringr::str_locate("\\/",string=f)[1] == 5) {
+            return(lubridate::ymd(f))
+        } else {
+            return(lubridate::dmy(f))
+        }
+        
+    } else {
+        return(lubridate::ymd(f))
+    }
+}
+
 
 #' A Function To Clean and Convert SAP Times in the format HHMMSS
 #' @param f The value to be converted 
@@ -52,8 +74,13 @@ sap_numeric <- function(f) {
 #' i <- sap_time("083000")
 
 sap_time <- function(f) {
+    if (stringf::str_count(pattern="(:|\\.)", string = f) > 0) {
+        return(lubridate::hms(f))
+    } else {
+        
     a<-strsplit(f,"")[[1]]
-    return(lubridate::hms(paste(paste0(a[c(T,F)],a[c(F,T)]),collapse=":")))
+        return(lubridate::hms(paste(paste0(a[c(T,F)],a[c(F,T)]),collapse=":")))
+    }
 }
 
 
