@@ -77,7 +77,7 @@ sap_time <- function(f) {
     if (stringr::str_count(pattern="(:|\\.)", string = f) > 0) {
         return(lubridate::hms(f))
     } else {
-        
+    f <- str_trim(f)
     a<-strsplit(f,"")[[1]]
         return(lubridate::hms(paste(paste0(a[c(T,F)],a[c(F,T)]),collapse=":")))
     }
