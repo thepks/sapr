@@ -74,13 +74,7 @@ sap_date <- function(f) {
 #' i <- sap_time("083000")
 
 sap_time <- function(f) {
-    if (stringr::str_count(pattern="(:|\\.)", string = f) > 0) {
-        return(lubridate::hms(f))
-    } else {
-    f <- str_trim(f)
-    a<-strsplit(f,"")[[1]]
-        return(lubridate::hms(paste(paste0(a[c(T,F)],a[c(F,T)]),collapse=":")))
-    }
+    return( f %>% stringr::str_trim() %>% stringr::str_match_all("\\d{2}(:)?") %>% stringr::str_c(sep=":") %>% lubridate::hms())
 }
 
 
