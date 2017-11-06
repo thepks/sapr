@@ -74,7 +74,7 @@ sap_date <- function(f) {
 #' i <- sap_time("083000")
 
 sap_time <- function(f) {
-    if (stringf::str_count(pattern="(:|\\.)", string = f) > 0) {
+    if (stringr::str_count(pattern="(:|\\.)", string = f) > 0) {
         return(lubridate::hms(f))
     } else {
         
