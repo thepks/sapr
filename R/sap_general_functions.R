@@ -127,8 +127,9 @@ sap_file_load <- function(dir_name, pattern, cleanup, skip) {
 
 sap_tidy_stad <- function(f) {
     
-    names(f) <- str_trim(names(f))
+    names(f) <- stringr::str_trim(names(f))
     f[, 1] <- NULL
+    names(f) <- paste(names(f),stringr::str_trim(f[1,]))
     f <- f[-c(1:4), ]
     f <- f[-nrow(f), ]
     names(f)[1] <- "Combined"
