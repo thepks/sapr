@@ -34,7 +34,8 @@ sap_stad_quantile <- function(o, testfield, pattern, summaryfield) {
 #' i <- sap_numeric(stad_value)
 
 sap_numeric <- function(f) {
-    if ( stringr::str_count(pattern="(\\d(?=\\..*,))|(^0?,\\d{3,})|(\\d,\\d{4,}(?!.*\\.))|(\\d\\.\\d{3}$)", string=f) >0 ) {
+# (\\d(?=\\..*,))|(^0?,\\d{3,})|(\\d,\\d{4,}(?!.*\\.))|(\\d\\.\\d{3}$)
+    if ( stringr::str_count(pattern="(\\d(?=\\.\\d{3}))|(\\d\\,(?!\\d{3}))", string=f) >0 ) {
         f <- gsub("\\.","",f)
         f <- gsub(",",".",f)
     } else {
