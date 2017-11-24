@@ -35,7 +35,17 @@ sap_stad_quantile <- function(o, testfield, pattern, summaryfield) {
 
 sap_numeric <- function(f) {
 # (\\d(?=\\..*,))|(^0?,\\d{3,})|(\\d,\\d{4,}(?!.*\\.))|(\\d\\.\\d{3}$)
-    ifelse ( stringr::str_count(pattern="(\\d(?=\\.\\d{3}))|(\\d\\,(?!\\d{3}))", string=f) >0, return(sap_numeric_comma(f)), return(sap_numeric_point(f)))
+# (\.\d{1,}(?=,|\.))|((,\d{3}){1,}(?!\.))
+                                        # (\\d(?=\\.\\d{3}))|(\\d\\,(?!\\d{3}))
+    # (\.\d{3}\,)|((\d){1,3}(\.)(\d{3}(\3|$))(?<!\,))
+
+#    f <- ifelse ( stringr::str_count(pattern="(\\.\\d{3}\\,)|(^(\\d){1,3}(\\.)(\\d{3}(\\\4|$)))", string=f) >0, sap_numeric_comma(f), sap_numeric_point(f))
+
+    a <- stringr::str_count(pattern="(\\.\\d{3}\\,)|(^(\\d){1,3}(\\.)(\\d{3}(\\4|$)))", string=f) >0
+    f[a] <- sap_numeric_comma(f[a])
+    f[!a] <- sap_numeric_point(f[!a])
+       
+    return(f)
 }
 
 #' A Function To Clean and Convert SAP Numbers where the , is teh decimal indicator
