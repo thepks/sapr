@@ -35,13 +35,37 @@ sap_stad_quantile <- function(o, testfield, pattern, summaryfield) {
 
 sap_numeric <- function(f) {
 # (\\d(?=\\..*,))|(^0?,\\d{3,})|(\\d,\\d{4,}(?!.*\\.))|(\\d\\.\\d{3}$)
-    if ( stringr::str_count(pattern="(\\d(?=\\.\\d{3}))|(\\d\\,(?!\\d{3}))", string=f) >0 ) {
-        f <- gsub("\\.","",f)
-        f <- gsub(",",".",f)
-    } else {
-        f <- gsub(",","",f)
-    }
+    ifelse ( stringr::str_count(pattern="(\\d(?=\\.\\d{3}))|(\\d\\,(?!\\d{3}))", string=f) >0, return(sap_numeric_comma(f)), return(sap_numeric_point(f)))
+}
+
+#' A Function To Clean and Convert SAP Numbers where the , is teh decimal indicator
+#' The function replace , and converts to numeric
+#' @param f The value to be converted 
+#' @keywords SAP number conversion 
+#' @export 
+#' @examples
+#' i <- sap_numeric_comma(stad_value)
+
+sap_numeric_comma <- function(f) {
+
+    f <- gsub("\\.","",f)
+    f <- gsub(",",".",f)
     return(as.numeric(f))
+}
+
+#' A Function To Clean and Convert SAP Numbers where the . is the decimal indicator
+#' The function replace , and converts to numeric
+#' @param f The value to be converted 
+#' @keywords SAP number conversion 
+#' @export 
+#' @examples
+#' i <- sap_numeric_point(stad_value)
+
+sap_numeric_point <- function(f) {
+
+    f <- gsub(",","",f)
+    return (as.numeric(f))
+    
 }
 
 #' A Function To Clean and Convert SAP Dates
