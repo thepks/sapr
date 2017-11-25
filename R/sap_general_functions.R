@@ -270,7 +270,7 @@ sap_clean_raw <- function(o) {
     o <- o[-nrow(o), ]
     o <- o[, -ncol(o)]
     
-    names(o) <- stringr::str_to_lower(str_trim(names(o)))
+    names(o) <- stringr::str_to_lower(stringr::str_trim(names(o)))
     
     return(o)
     
@@ -312,6 +312,6 @@ sap_missing_values <- function(o) {
 sap_find_skip <- function(f, l=10, c="|") {
 
     a <- readr::read_lines(file=f,n_max=l)
-    return(which(stringr::str_sub(a,1,1)==c)[1])
+    return(which(stringr::str_sub(a,1,1)==c)[1]-1)
 
 }
