@@ -35,11 +35,14 @@ sap_stad_quantile <- function(o, testfield, pattern, summaryfield) {
 
 sap_numeric <- function(f) {
 
-    a <- stringr::str_count(pattern="(\\.\\d{3}\\,)|(^(\\d){1,3}(\\.)(\\d{3}(\\4|$)))|(^\\d*,\\d{1,2}$)|(^\\d*,\\d{4,}$)", string=f) >0
-    f[a] <- sap_numeric_comma(f[a])
-    f[!a] <- sap_numeric_point(f[!a])
-       
-    return(f)
+# a <- stringr::str_count(pattern="(\\.\\d{3}\\,)|(^(\\d){1,3}(\\.)(\\d{3}(\\4|$)))|(^\\d*,\\d{1,2}$)|(^\\d*,\\d{4,}$)", string=f) >0
+# f[a] <- sap_numeric_comma(f[a])
+# f[!a] <- sap_numeric_point(f[!a])
+    
+    
+    a <- sum(stringr::str_count(pattern="(\\.\\d{3}\\,)|(^(\\d){1,3}(\\.)(\\d{3}(\\4|$)))|(^\\d*,\\d{1,2}$)|(^\\d*,\\d{4,}$)", string=f) >0, na.rm=TRUE)
+    if ( a > length(f) / 2) { return(sap_numeric_comma(f)) } else { return(sap_numeric_point(f))}
+
 }
 
 #' A Function To Clean and Convert SAP Numbers where the , is teh decimal indicator
