@@ -297,3 +297,21 @@ sap_missing_values <- function(o) {
     row.names(absent_items) <- NULL
     return(absent_items)
 }
+
+#' A Function To Determine Lines To Skip Base On First Line Starting With A Character
+#' The function returns the first line that starts with a particular separator
+#' The default is ten lines to check and for the pipe (|) character
+#' @param f filename
+#' @param l lines
+#' @param c character
+#' @export
+#' @keywords skip
+#' @examples
+#' sap_find_skip(filename)
+
+sap_find_skip <- function(f, l=10, c="|") {
+
+    a <- readr::read_lines(file=f,n_max=l)
+    return(which(stringr::str_sub(a,1,1)==c)[1])
+
+}
