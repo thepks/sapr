@@ -34,12 +34,6 @@ sap_stad_quantile <- function(o, testfield, pattern, summaryfield) {
 #' i <- sap_numeric(stad_value)
 
 sap_numeric <- function(f) {
-# (\\d(?=\\..*,))|(^0?,\\d{3,})|(\\d,\\d{4,}(?!.*\\.))|(\\d\\.\\d{3}$)
-# (\.\d{1,}(?=,|\.))|((,\d{3}){1,}(?!\.))
-                                        # (\\d(?=\\.\\d{3}))|(\\d\\,(?!\\d{3}))
-    # (\.\d{3}\,)|((\d){1,3}(\.)(\d{3}(\3|$))(?<!\,))
-
-#    f <- ifelse ( stringr::str_count(pattern="(\\.\\d{3}\\,)|(^(\\d){1,3}(\\.)(\\d{3}(\\\4|$)))", string=f) >0, sap_numeric_comma(f), sap_numeric_point(f))
 
     a <- stringr::str_count(pattern="(\\.\\d{3}\\,)|(^(\\d){1,3}(\\.)(\\d{3}(\\4|$)))|(^\\d*,\\d{1,2}$)|(^\\d*,\\d{4,}$)", string=f) >0
     f[a] <- sap_numeric_comma(f[a])
@@ -88,16 +82,11 @@ sap_numeric_point <- function(f) {
 #' i <- sap_date(date_value,"ymd")
 
 sap_date <- function(f) {
-    if( stringr::str_count(pattern="(\\.|\\/)", string=f)>0 ) {
-        if(stringr::str_locate("(\\.|\\/)",string=f)[1] == 5) {
-            return(lubridate::ymd(f))
-        } else {
-            return(lubridate::dmy(f))
-        }
-        
-    } else {
-        return(lubridate::ymd(f))
-    }
+
+    g <- lubridate::ymd(f)
+    g[is.na(g)] <- lubridate::dmy(f[is.na(g)])
+    return(g)
+
 }
 
 
