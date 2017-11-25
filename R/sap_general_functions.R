@@ -41,7 +41,7 @@ sap_numeric <- function(f) {
 
 #    f <- ifelse ( stringr::str_count(pattern="(\\.\\d{3}\\,)|(^(\\d){1,3}(\\.)(\\d{3}(\\\4|$)))", string=f) >0, sap_numeric_comma(f), sap_numeric_point(f))
 
-    a <- stringr::str_count(pattern="(\\.\\d{3}\\,)|(^(\\d){1,3}(\\.)(\\d{3}(\\4|$)))", string=f) >0
+    a <- stringr::str_count(pattern="(\\.\\d{3}\\,)|(^(\\d){1,3}(\\.)(\\d{3}(\\4|$)))|(^\\d*,\\d{1,2}$)|(^\\d*,\\d{4,}$)", string=f) >0
     f[a] <- sap_numeric_comma(f[a])
     f[!a] <- sap_numeric_point(f[!a])
        
