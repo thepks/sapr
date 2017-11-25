@@ -83,8 +83,9 @@ sap_numeric_point <- function(f) {
 
 sap_date <- function(f) {
 
-    g <- lubridate::ymd(f)
-    g[is.na(g)] <- lubridate::dmy(f[is.na(g)])
+    g <- suppressMessages(lubridate::ymd(f))
+    g[is.na(g)] <- suppressMessages(lubridate::dmy(f[is.na(g)]))
+   
     return(g)
 
 }
