@@ -39,7 +39,7 @@ sap_numeric <- function(f) {
 # f[a] <- sap_numeric_comma(f[a])
 # f[!a] <- sap_numeric_point(f[!a])
     
-    
+    f <- stringr::str_trim(f)
     a <- sum(stringr::str_count(pattern="(\\.\\d{3}\\,)|(^(\\d){1,3}(\\.)(\\d{3}(\\4|$)))|(^\\d*,\\d{1,2}$)|(^\\d*,\\d{4,}$)", string=f) >0, na.rm=TRUE)
     if ( a > length(f) / 2) { b <- length(f) - length(which(sap_numeric_comma(f) == 0)) } else { b <- length(f) - length(which(sap_numeric_point(f) ==0 ))}
 
